@@ -1,12 +1,9 @@
 import AddToCalendar from "react-add-to-calendar";
-import QRCode from "qrcode.react";
-import useSWR from "swr";
 
 import Head from "@src/components/Head";
 import resolvePath from "@src/utils/resolvePath";
 import appConfig from "@src/config/app";
 import { useTranslation, defaultLocale } from "@src/i18n";
-import guestList from "./guest_list.json";
 
 const translateConfig = (appConfig, locale) => {
   if (!locale || locale === defaultLocale) {
@@ -20,8 +17,8 @@ const translateConfig = (appConfig, locale) => {
   return { ...appConfig, ...configLang };
 };
 
-const ShowInvite = ({ currentUrl, guestListLastUpdatedAt, guest }) => {
-  const t = useTranslation(guest.locale);
+const ShowInvite = ({ currentUrl }) => {
+  const t = useTranslation(defaultLocale);
 
   // Initiate config variables
   const {
@@ -33,7 +30,7 @@ const ShowInvite = ({ currentUrl, guestListLastUpdatedAt, guest }) => {
     weddingDate,
     weddingTime,
     calendarInfo,
-  } = translateConfig(appConfig, guest.locale);
+  } = translateConfig(appConfig, defaultLocale);
   const { name } = info;
 
   // Venue info
@@ -43,9 +40,6 @@ const ShowInvite = ({ currentUrl, guestListLastUpdatedAt, guest }) => {
   // Event info
   const eventTitle = `${name}ның Бесік тойы`;
   let eventDescription = `${weddingDateBrief} at ${venue.name}, ${venue.city}`;
-  if (guest.name) {
-    eventDescription = `Dear ${guest.name}, you are cordially invited to our wedding on ${weddingDate} at ${venue.name}. Looking forward to seeing you!`;
-  }
 
   // Calendar payload
   const calendarEvent = {
@@ -70,10 +64,8 @@ const ShowInvite = ({ currentUrl, guestListLastUpdatedAt, guest }) => {
         {...ogTags}
         title={eventTitle}
         description={eventDescription}
-        guestName={guest.name}
         url={currentUrl}
         date={weddingDateBrief}
-        modifiedTime={guestListLastUpdatedAt}
         venue={venueBrief}
         logo={resolvePath(ogTags.logo)}
         author={resolvePath("/")}
@@ -242,19 +234,6 @@ const ShowInvite = ({ currentUrl, guestListLastUpdatedAt, guest }) => {
             <div className="row justify-content-center">
               <div className="col-lg-9">
                 <div className="section_title text-center pb-30">
-                  {guest.name && (
-                    <div
-                      style={{
-                        textAlign: "center",
-                        maxWidth: 400,
-                        margin: "auto",
-                        paddingBottom: 20,
-                      }}
-                    >
-                      {t("invitationGreeting")}
-                      <p style={{ fontSize: "1.5rem" }}>{guest.name},</p>
-                    </div>
-                  )}
                   <h3 className="title">{t("invitationIntro")}</h3>
                   <div
                     style={{
@@ -276,12 +255,6 @@ const ShowInvite = ({ currentUrl, guestListLastUpdatedAt, guest }) => {
                       <i>{t("invitationContent")}</i>
                     </p>
                   </div>
-
-                  {appConfig.showQrCode && guest.name && (
-                    <div style={{ marginTop: 20, marginBottom: 35 }}>
-                      <QRCode value={guest.guestId} />
-                    </div>
-                  )}
 
                   <p className="text">
                     Мекен-жайымыз:
@@ -389,44 +362,11 @@ const ShowInvite = ({ currentUrl, guestListLastUpdatedAt, guest }) => {
 
 ShowInvite.getInitialProps = (ctx) => {
   const localeParams = ctx.query.lang || defaultLocale;
-  const emptyGuestParams = {
-    guest: {
-      guestId: "",
-      name: "",
-      greeting: "",
-      locale: localeParams,
-    },
-  };
 
   const currentUrl = resolvePath(ctx.req.url);
-  const guestId = ctx.query.u;
-  if (!guestId) {
-    return {
-      currentUrl,
-      ...emptyGuestParams,
-    };
-  }
-
-  const guestData = guestList.data;
-  const guestListLastUpdatedAt = guestList.meta.lastUpdatedAt;
-  const { name, greeting, locale } =
-    guestData.filter((guest) => guest.guestId === guestId)[0] || {};
-  if (!name) {
-    return {
-      currentUrl,
-      ...emptyGuestParams,
-    };
-  }
 
   return {
     currentUrl,
-    guestListLastUpdatedAt,
-    guest: {
-      name,
-      greeting,
-      guestId,
-      locale: locale || localeParams,
-    },
   };
 };
 
