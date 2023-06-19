@@ -1,12 +1,12 @@
 {
-  "siteIntro": "WE ARE GETTING MARRIED",
-  "eventDate": "Event Date",
-  "invitationGreeting": "Dear",
-  "invitationIntro": "You Are Cordially Invited",
-  "invitationContent": "Our joy will be more complete with your presence in our special day.",
-  "invitationContentTextAlign": "left",
-  "invitationOutro": "We are looking forward to seeing you.",
-  "btnAddToMyCalendar": "Add to my calendar",
+  "siteIntro": "Шілдехана",
+  "eventDate": "Той салтанаты",
+  "invitationGreeting": "Құрметті",
+  "invitationIntro": "Құрметті туған-туыс, құда-жекжат, дос-жарандар!",
+  "invitationContent": "Сіздерді немереміз Ақсұлтанның шілдеханасына арналған ақ дастарханымыздың қадірлі қонағы болуға шақырамыз!",
+  "invitationContentTextAlign": "center",
+  "invitationOutro": "Той иелері: Талғат-Жұлдыз",
+  "btnAddToMyCalendar": "Календарыма тіркеу",
   "guestCheckin": {
     "pleaseScanInvitation": "Please scan your invitation.."
   }
