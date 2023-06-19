@@ -2,19 +2,19 @@ import AddToCalendar from "react-add-to-calendar";
 
 import Head from "@src/components/Head";
 import resolvePath from "@src/utils/resolvePath";
-import appConfig from "../src/config/app";
+import AppConfig from "../src/config/app";
 import { useTranslation, defaultLocale } from "@src/i18n";
 
-const translateConfig = (appConfig, locale) => {
+const translateConfig = (AppConfig, locale) => {
   if (!locale || locale === defaultLocale) {
-    return appConfig;
+    return AppConfig;
   }
   // Replace config with lang
-  const configLang = appConfig.lang[locale];
+  const configLang = AppConfig.lang[locale];
   if (configLang === undefined) {
     throw new Error("invalid locale: ", locale);
   }
-  return { ...appConfig, ...configLang };
+  return { ...AppConfig, ...configLang };
 };
 
 const ShowInvite = ({ currentUrl }) => {
@@ -30,7 +30,7 @@ const ShowInvite = ({ currentUrl }) => {
     weddingDate,
     weddingTime,
     calendarInfo,
-  } = translateConfig(appConfig, defaultLocale);
+  } = translateConfig(AppConfig, defaultLocale);
   const { name } = info;
 
   // Venue info
@@ -332,7 +332,7 @@ const ShowInvite = ({ currentUrl }) => {
             </div>
           </div>
         </div>
-        {appConfig.showBuiltWithInfo && (
+        {AppConfig.showBuiltWithInfo && (
           <div
             style={{
               textAlign: "center",
