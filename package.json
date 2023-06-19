@@ -3,12 +3,15 @@
   "license": "MIT",
   "scripts": {
     "dev": "next",
+    "heroku-postbuild": "next build",
     "build": "next build",
     "prestart": "next build",
     "start": "next start",
     "now:deploy": "yarn && now --prod"
   },
   "dependencies": {
+    "babel-plugin-import": "^1.13.0",
+    "babel-plugin-module-resolver": "^4.0.0",
     "csv-parser": "^2.3.2",
     "gensync": "^1.0.0-beta.1",
     "i18n-js": "^3.5.1",
@@ -22,8 +25,6 @@
     "swr": "^0.1.16"
   },
   "devDependencies": {
-    "babel-plugin-import": "^1.13.0",
-    "babel-plugin-module-resolver": "^4.0.0",
     "cross-env": "^5.1.1",
     "now": "^16.7.3"
   },
