@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
+    "prestart": "next build",
     "start": "next start",
     "now:deploy": "yarn && now --prod"
   },

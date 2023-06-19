@@ -1,5 +1,4 @@
 import Head from "next/head";
-import resolvePath from "@src/utils/resolvePath";
 
 export default ({
   title,
