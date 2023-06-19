@@ -2,7 +2,7 @@ import AddToCalendar from "react-add-to-calendar";
 
 import Head from "@src/components/Head";
 import resolvePath from "@src/utils/resolvePath";
-import AppConfig from "../src/config/App";
+import AppConfig from "@src/config/App";
 import { useTranslation, defaultLocale } from "@src/i18n";
 
 const translateConfig = (AppConfig, locale) => {
